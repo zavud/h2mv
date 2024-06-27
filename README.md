@@ -31,9 +31,15 @@ Contains all modules related to the model's architecture, divided into three sub
 - `neural_networks`: Lower-level neural network implementations.
   - `neural_networks.py`: Implementation details of neural networks within the hybrid model.
 
-- `physics`: Conceptual/process models related to physical aspects.
-  - `water_cycle`: Contains models for various components of the water cycle.
-    - `evapotranspiration.py`, `gw_storage.py`, `runoff.py`, `snow.py`, `soil_gw_recharge.py`, `soil_moisture.py`, `tws.py`, `water_cycle_forward.py`: Models for specific water cycle processes.
+- `physics`: This section delves into the physical processes and conceptual models that underpin the hybrid model's understanding of the water cycle and its interactions. Each module within this directory is dedicated to a specific aspect of the water cycle.
+  - `evapotranspiration.py`: Simulates the process of evapotranspiration, integrating both the evaporation from land, interception evaporation and the transpiration from plants.
+  - `gw_storage.py`: Models the groundwater storage dynamics.
+  - `runoff.py`: Captures the runoff processes, including both surface runoff and baseflow.
+  - `snow.py`: Represents the snowpack dynamics, including accumulation, melting.
+  - `soil_gw_recharge.py`: Simulates the recharge of soil and groundwater
+  - `soil_moisture.py`: Models soil moisture dynamics, critical for understanding plant-water interactions, evapotranspiration, and soil water storage.
+  - `tws.py`: Stands for Terrestrial Water Storage, encompassing three components of water storage on land, including snow, soil moisture, and groundwater.
+  - `water_cycle_forward.py`: Provides a high-level forward run of the complete water cycle model at a single timestep, integrating the various components and processes modeled in the other modules.
 
 ### `equifinality`
 
