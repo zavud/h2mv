@@ -1,62 +1,57 @@
-# A global physically-constrained deep learning water cycle model with vegetation
+# Global Physically-Constrained Deep Learning Water Cycle Model with Vegetation
 
-This repository contains the scripts that are written for the development of the hybrid model in my PhD project.
+Welcome to the GitHub repository for our hybrid hydrological model with vegetation (H2MV). H2MV represents a hybrid approach, combining deep learning with physical constraints to simulate the water cycle and its interaction with vegetation.
 
-# Folder structure of the repository:
+## Repository Structure
 
-## datasets
+This repository is organized into several key folders, each containing specific types of scripts and modules necessary for the model's development and operation.
 
-This folder contains the modules/scripts that are written for the dataset class that inherits Pytorch Dataset class. Specifically, the folder contains the following modules/python files:
+### `datasets`
 
-- ZarrDataset.py: dataset class written for handling the training/testing/validation data for model training.
-- helpers_loading.py: helper functions to load the data within ZarrDataset class
-- helpers_preprocessing.py: helper functions to preprocess the data within ZarrDataset class
+This directory hosts scripts and modules for managing datasets, specifically designed to work with the PyTorch Dataset class. It includes:
 
-## models
+- `ZarrDataset.py`: Manages training, testing, and validation datasets for model training.
+- `helpers_loading.py`: Provides helper functions for loading data into the ZarrDataset class.
+- `helpers_preprocessing.py`: Contains helper functions for preprocessing data within the ZarrDataset class.
 
-This folder contains all the high level as well as lower level modules for the whole hybrid model. There are 3 subfolders:
+### `models`
 
-- hybrid: collection of python modules containing high level implementation of the full hybrid model
-- neural_networks: neural network part of the full hybrid model
-- physics: collection of python modules containing conceptual/process model
+Contains all modules related to the model's architecture, divided into three subdirectories:
 
-Each subfolder contains the following modules (and/or subfolders):
+- `hybrid`: Includes Python modules for the high-level implementation of the hybrid model.
+  - `cv_helpers.py`: Functions for running k-fold cross-validation.
+  - `debug_helpers.py`: Debugging functions (used for bug fixes).
+  - `hybrid_H2O.py`: Core hybrid model implementation using PyTorch and PyTorch Lightning.
+  - `hybrid_H2O_common_step.py`: Common steps for testing/validation during training.
+  - `hybrid_H2O_training_step.py`: Training steps for model optimization.
+  - `hybrid_helpers.py`: Functions for forward computation of the model.
+  - `train_model.py`: Module for model training using cross-validation.
+  - `run_parallel_slurm.sh`: Shell script for allocating computational resources via Slurm for 10-fold cross-validation.
 
-- hybrid:
-    - cv_helpers.py: helper functions to run k-fold cross validation
-    - debug_helpers.py: helper function to debug the model (used only when there is a bug)
-    - hybrid_H2O.py: the core hybrid model containing the high-level implementation using pytorch and pytorch lightning
-    - hybrid_H2O_common_step.py: the common step that is used for testing/validation during training
-    - hybrid_H2O_training_step.py: the training step that is used to optimise the model during training
-    - hybrid_helpers.py: helper functions that are used to run the forward computation of the model
-    - train_model.py: this module is used to train models using cross-validation (CV)
-    - run_parallel_slurm.sh: shell script is used to allocate computational resources (GPU, memory, disk space, etc.) to jobs (tasks or processes) using slurm for 10-fold CV
+- `neural_networks`: Lower-level neural network implementations.
+  - `neural_networks.py`: Implementation details of neural networks within the hybrid model.
 
-- neural_networks:
-    - neural_networks.py: lower-level implementation of the neural networks (used within hybrid_H2O.py)
+- `physics`: Conceptual/process models related to physical aspects.
+  - `water_cycle`: Contains models for various components of the water cycle.
+    - `evapotranspiration.py`, `gw_storage.py`, `runoff.py`, `snow.py`, `soil_gw_recharge.py`, `soil_moisture.py`, `tws.py`, `water_cycle_forward.py`: Models for specific water cycle processes.
 
-- physics:
-    - water_cycle:
-        - evapotranspiration.py: evapotranspiration model
-        - gw_storage.py: groundwater storage model
-        - runoff.py: runoff model
-        - snow.py: snow model
-        - soil_gw_recharge.py: soil and groundwater recharge model
-        - soil_moisture.py: soil moisture model
-        - tws.py: terrestrial water storage model
-        - water_cycle_forward.py: high-level forward run of full water cycle model at a single time step (used within hybrid_H2O.py)
+### `equifinality`
 
-## equifinality
+- `equifinality.py`: Script for quantifying the equifinality of estimated processes post-training.
 
-This folder contains the script used to quantify the equifinality of the estimated processes after the models are trained.
+## Model Dependencies
 
-- equifinality.py: module to compute the equifinality of the process estimations
+To ensure full reproducibility and ease of setup, we provide two files for managing dependencies:
 
-# Model dependencies
+- `requirements.txt`: For pip users.
+- `environment.yml`: For Conda users.
 
-We publish the following files to manage dependencies:
+**Note:** While the input datasets used for training the model are not included in this repository, all referenced datasets in our paper can be obtained from their original sources.
 
-- requirements.txt: model dependencies for pip users
-- environment.yml: model dependencies for conda users
+## Getting Started
 
-To be able to fully reproduce and train the model the used input datasets are needed. Unfortunately we can't publish the used data, but all inputs (cited in the paper) can be downloaded from their original source.
+To get started with this model, please ensure you have the necessary dependencies installed by following the instructions in either `requirements.txt` or `environment.yml`. Due to the complexity and computational requirements of the model, access to appropriate hardware and computational resources is recommended.
+
+## Contributing and Support
+
+We warmly welcome contributions, feedback, and questions! If you encounter any issues, have suggestions for improvements, or want to contribute to the project, please feel free to open an issue in the issues section of this repository. Your input is valuable in making this model more robust and useful for the community.
